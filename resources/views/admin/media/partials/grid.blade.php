@@ -17,8 +17,13 @@
                      data-size="{{ number_format($item->size / 1024, 2) }} KB"
                      data-mime="{{ $item->mime_type }}">
                     
-                    <div class="position-relative ratio ratio-1x1 overflow-hidden rounded-top-3">
-                        <img src="{{ $item->path }}" alt="{{ $item->alt_text }}" class="img-fluid object-fit-cover w-100 h-100">
+                    <div class="position-relative ratio ratio-1x1 overflow-hidden rounded-top-3 bg-dark d-flex align-items-center justify-content-center">
+                        @if(str_starts_with($item->mime_type, 'video/'))
+                            <video src="{{ $item->path }}" class="img-fluid object-fit-cover w-100 h-100" muted preload="metadata"></video>
+                            <i class="fa-solid fa-circle-play text-white position-absolute fs-3" style="opacity:0.8;"></i>
+                        @else
+                            <img src="{{ $item->path }}" alt="{{ $item->alt_text }}" class="img-fluid object-fit-cover w-100 h-100">
+                        @endif
                     </div>
                     <div class="card-body p-2 text-center">
                         <div class="text-truncate small fw-semibold text-dark">{{ $item->name }}</div>

@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.news.store') }}" method="POST">
+    <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         
         <div class="row g-4">
@@ -102,7 +102,13 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="video_url" class="form-label fw-semibold text-secondary">YouTube / Video URL (Optional)</label>
+                                <label for="video_upload" class="form-label fw-semibold text-secondary">Upload Raw Video (Max 50MB)</label>
+                                <input type="file" class="form-control" id="video_upload" name="video_upload" accept="video/mp4,video/webm,video/ogg">
+                                <div class="form-text mt-2 text-muted">OR Provide a YouTube / External Video URL below:</div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="video_url" class="form-label fw-semibold text-secondary">YouTube / Video URL</label>
                                 <input type="url" class="form-control py-3" id="video_url" name="video_url" value="{{ old('video_url') }}" placeholder="https://youtube.com/watch?v=...">
                             </div>
 

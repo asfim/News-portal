@@ -82,6 +82,11 @@ class NewsController extends Controller
             $data['publish_at'] = now();
         }
 
+        if ($request->hasFile('video_upload')) {
+            $path = $request->file('video_upload')->store('news_videos', 'public');
+            $data['video_url'] = '/storage/' . $path;
+        }
+
         $news = News::create($data);
 
         // Sync tags pivot relationship
@@ -128,6 +133,11 @@ class NewsController extends Controller
             $data['publish_at'] = Carbon::parse($data['publish_at']);
         } elseif ($data['status'] === 'published') {
             $data['publish_at'] = now();
+        }
+
+        if ($request->hasFile('video_upload')) {
+            $path = $request->file('video_upload')->store('news_videos', 'public');
+            $data['video_url'] = '/storage/' . $path;
         }
 
         $news->update($data);

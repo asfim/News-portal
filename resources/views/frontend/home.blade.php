@@ -12,7 +12,7 @@
             <div class="hero-banner position-relative overflow-hidden rounded-4 shadow-lg h-100" style="min-height: 520px;">
                 <div class="img-zoom-container w-100 h-100 position-absolute top-0 start-0">
                     @if($featured->featuredImage)
-                        <img src="{{ $featured->featuredImage->file_path }}" class="w-100 h-100 object-fit-cover" alt="{{ $featured->title }}">
+                        <img src="{{ $featured->featuredImage->path }}" class="w-100 h-100 object-fit-cover" alt="{{ $featured->title }}">
                     @else
                         <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Hero">
                     @endif
@@ -75,13 +75,11 @@
                 @if($newsItem)
                 <div class="col-6 col-md-3">
                     <div class="glass-card h-100 overflow-hidden d-flex flex-column">
-                        <div class="img-zoom-container position-relative" style="height: 160px;">
-                            @if($newsItem->featuredImage)
-                                <img src="{{ $newsItem->featuredImage->file_path }}" class="w-100 h-100 object-fit-cover" alt="{{ $newsItem->title }}">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=400&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Quick News">
-                            @endif
-                            <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1 fs-7 fw-bold"><a href="{{ route('category', $cat->slug) }}" class="text-white text-decoration-none">{{ $cat->name }}</a></span>
+                        <div class="img-zoom-container position-relative ratio ratio-16x9">
+                            <x-news-thumbnail :news="$newsItem" classes="object-fit-cover" />
+                            <div class="position-absolute m-2" style="top:0; left:0; z-index: 10; width: auto; height: auto;">
+                                <span class="badge bg-danger px-2 py-1 fs-7 fw-bold"><a href="{{ route('category', $cat->slug) }}" class="text-white text-decoration-none">{{ $cat->name }}</a></span>
+                            </div>
                         </div>
                         <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <h4 class="h6 fw-bold mb-2 line-clamp-2"><a href="{{ route('news.show', $newsItem->slug) }}" class="text-reset text-decoration-none hover-danger">{{ $newsItem->title }}</a></h4>
@@ -175,13 +173,9 @@
                 @foreach($videoNews as $video)
                 <div class="swiper-slide">
                     <div class="glass-card overflow-hidden">
-                        <div class="position-relative" style="height:200px;">
-                            @if($video->featuredImage)
-                                <img src="{{ $video->featuredImage->file_path }}" class="w-100 h-100 object-fit-cover" alt="{{ $video->title }}">
-                            @else
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=500&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="{{ $video->title }}">
-                            @endif
-                            <a href="{{ route('news.show', $video->slug) }}" class="position-absolute top-50 start-50 translate-middle text-white fs-1 opacity-90">
+                        <div class="position-relative ratio ratio-16x9">
+                            <x-news-thumbnail :news="$video" classes="object-fit-cover" />
+                            <a href="{{ route('news.show', $video->slug) }}" class="position-absolute top-50 start-50 translate-middle text-white fs-1 opacity-90" style="width:auto; height:auto; z-index:10;">
                                 <i class="fa-solid fa-circle-play text-danger bg-white rounded-circle p-1"></i>
                             </a>
                         </div>

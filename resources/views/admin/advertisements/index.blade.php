@@ -69,7 +69,7 @@
                                 <tr class="border-bottom border-light">
                                     <td class="px-4 py-3">
                                         @if($ad->type === 'image' && $ad->image_path)
-                                            <img src="{{ $ad->image_path }}" alt="ad" class="rounded border" style="width: 60px; height: 40px; object-fit: cover;">
+                                            <img src="{{ asset($ad->image_path) }}" alt="ad" class="rounded border" style="width: 60px; height: 40px; object-fit: cover;">
                                         @else
                                             <div class="bg-secondary bg-opacity-10 text-secondary rounded d-flex align-items-center justify-content-center small" style="width: 60px; height: 40px;">
                                                 <i class="fa-solid fa-code"></i>

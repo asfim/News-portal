@@ -380,6 +380,51 @@
         document.getElementById('sidebarCollapse').addEventListener('click', function () {
             document.getElementById('sidebar').classList.toggle('active');
         });
+
+        // Global Image & Video Preview Handler
+        document.addEventListener('change', function(e) {
+            if (e.target && e.target.type === 'file') {
+                const file = e.target.files[0];
+                if (file && (file.type.startsWith('image/') || file.type.startsWith('video/'))) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const isVideo = file.type.startsWith('video/');
+                        const tagName = isVideo ? 'video' : 'img';
+                        
+                        let existingMedia = e.target.parentNode.querySelector('img, video');
+                        
+                        if (existingMedia && existingMedia.tagName.toLowerCase() === tagName) {
+                            existingMedia.src = event.target.result;
+                            const container = existingMedia.closest('.d-none');
+                            if(container) container.classList.remove('d-none');
+                        } else {
+                            if(existingMedia) {
+                                // If type changed (img -> video), remove old wrapper
+                                const oldContainer = existingMedia.closest('.image-preview-container');
+                                if(oldContainer) oldContainer.remove();
+                            }
+                            
+                            let previewContainer = document.createElement('div');
+                            previewContainer.className = 'mt-3 p-2 bg-light border border-light-subtle rounded-3 d-inline-block image-preview-container shadow-sm';
+                            
+                            const mediaEl = document.createElement(tagName);
+                            mediaEl.style.maxHeight = '120px';
+                            mediaEl.className = 'rounded object-fit-contain';
+                            mediaEl.src = event.target.result;
+                            if(isVideo) {
+                                mediaEl.controls = true;
+                                mediaEl.autoplay = true;
+                                mediaEl.muted = true;
+                            }
+                            
+                            previewContainer.appendChild(mediaEl);
+                            e.target.parentNode.appendChild(previewContainer);
+                        }
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
     </script>
 </body>
 </html>

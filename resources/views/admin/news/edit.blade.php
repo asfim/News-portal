@@ -24,7 +24,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.news.update', $news->id) }}" method="POST">
+    <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -107,8 +107,20 @@
                             </div>
 
                             <div class="mb-4">
-                                <label for="video_url" class="form-label fw-semibold text-secondary">YouTube / Video URL (Optional)</label>
-                                <input type="url" class="form-control py-3" id="video_url" name="video_url" value="{{ old('video_url', $news->video_url) }}" placeholder="https://youtube.com/watch?v=...">
+                                <label for="video_upload" class="form-label fw-semibold text-secondary">Upload Raw Video (Max 50MB)</label>
+                                @if($news->video_url && str_starts_with($news->video_url, '/storage/news_videos'))
+                                    <div class="mb-2">
+                                        <video src="{{ asset($news->video_url) }}" controls class="w-100 rounded" style="max-height: 250px;"></video>
+                                    </div>
+                                    <small class="d-block text-muted mb-2">Upload a new file to replace the existing video.</small>
+                                @endif
+                                <input type="file" class="form-control" id="video_upload" name="video_upload" accept="video/mp4,video/webm,video/ogg">
+                                <div class="form-text mt-2 text-muted">OR Provide a YouTube / External Video URL below:</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="video_url" class="form-label fw-semibold text-secondary">YouTube / External Video URL</label>
+                                <input type="url" class="form-control py-3" id="video_url" name="video_url" value="{{ old('video_url', str_starts_with($news->video_url ?? '', '/storage/news_videos') ? '' : $news->video_url) }}" placeholder="https://youtube.com/watch?v=...">
                             </div>
 
                             <div class="row g-3 mb-4">

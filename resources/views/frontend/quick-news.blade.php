@@ -27,15 +27,13 @@
                     @if($newsItem)
                     <div class="col-sm-6 col-md-4 col-lg-3">
                         <div class="glass-card h-100 overflow-hidden d-flex flex-column hover-lift">
-                            <div class="img-zoom-container position-relative" style="height: 180px;">
-                                @if($newsItem->featuredImage)
-                                    <img src="{{ $newsItem->featuredImage->file_path }}" class="w-100 h-100 object-fit-cover" alt="{{ $newsItem->title }}">
-                                @else
-                                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=400&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Quick News">
-                                @endif
-                                <span class="badge bg-danger position-absolute top-0 start-0 m-2 px-2 py-1 fs-7 fw-bold">
-                                    <a href="{{ route('category', $cat->slug) }}" class="text-white text-decoration-none">{{ $cat->name }}</a>
-                                </span>
+                            <div class="img-zoom-container position-relative ratio ratio-16x9">
+                                <x-news-thumbnail :news="$newsItem" classes="object-fit-cover" />
+                                <div class="position-absolute m-2" style="top:0; left:0; z-index:10; width:auto; height:auto;">
+                                    <span class="badge bg-danger px-2 py-1 fs-7 fw-bold">
+                                        <a href="{{ route('category', $cat->slug) }}" class="text-white text-decoration-none">{{ $cat->name }}</a>
+                                    </span>
+                                </div>
                             </div>
                             <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                                 <h4 class="h6 fw-bold mb-2 line-clamp-2">

@@ -12,10 +12,11 @@ class Advertisement extends Model
 
     protected $fillable = [
         'title',
-        'image',
-        'link',
-        'html_code',
-        'position',
+        'type',
+        'placement_key',
+        'image_path',
+        'redirect_url',
+        'script_code',
         'start_date',
         'end_date',
         'status',

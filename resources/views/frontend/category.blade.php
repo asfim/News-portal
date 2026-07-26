@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'সর্বশেষ সংবাদ | NewsHub Pro')
+@section('title', $category->name . ' | NewsHub Pro')
 
 @section('content')
 <main class="container-fluid px-lg-5 py-4">
     <!-- Page Header -->
     <section class="mb-4">
         <div class="d-flex align-items-center justify-content-between pb-3 border-bottom border-secondary-subtle">
-            <h1 class="h3 fw-extrabold m-0 border-start border-4 border-danger ps-3">সর্বশেষ সংবাদ</h1>
+            <h1 class="h3 fw-extrabold m-0 border-start border-4 border-danger ps-3">{{ $category->name }}</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0 small">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none text-muted">হোম</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">সর্বশেষ সংবাদ</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
                 </ol>
             </nav>
         </div>
@@ -26,13 +26,6 @@
                     <div class="glass-card h-100 overflow-hidden d-flex flex-column hover-lift">
                         <div class="img-zoom-container position-relative ratio ratio-16x9">
                             <x-news-thumbnail :news="$item" classes="object-fit-cover" />
-                            @if($item->category)
-                            <div class="position-absolute m-2" style="top:0; left:0; z-index:10; width:auto; height:auto;">
-                                <span class="badge bg-danger px-2 py-1 fs-7 fw-bold">
-                                    <a href="{{ route('category', $item->category->slug) }}" class="text-white text-decoration-none">{{ $item->category->name }}</a>
-                                </span>
-                            </div>
-                            @endif
                         </div>
                         <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                             <div>
@@ -57,9 +50,9 @@
             </div>
         @else
             <div class="text-center py-5">
-                <div class="display-1 text-muted mb-3"><i class="fa-regular fa-newspaper"></i></div>
+                <div class="display-1 text-muted mb-3"><i class="fa-regular fa-folder-open"></i></div>
                 <h3 class="fw-bold text-muted">কোনো সংবাদ পাওয়া যায়নি</h3>
-                <p class="text-secondary">এই মুহূর্তে দেখানোর মতো কোনো সংবাদ নেই।</p>
+                <p class="text-secondary">এই ক্যাটাগরিতে এই মুহূর্তে দেখানোর মতো কোনো সংবাদ নেই।</p>
                 <a href="{{ route('home') }}" class="btn btn-danger px-4 py-2 rounded-pill mt-3">হোমপেজে ফিরে যান</a>
             </div>
         @endif

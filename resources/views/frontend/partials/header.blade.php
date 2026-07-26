@@ -55,11 +55,11 @@
                 </a>
             </div>
             <div class="col-md-4 d-none d-md-block text-center">
-                <div class="p-2 rounded-3 text-center border border-dashed" style="background: var(--nh-bg); font-size: 0.8rem;">
-                    {!! renderAdSlot('header_banner', 'w-100') !!}
+                <div class="p-1 rounded-3 text-center border border-dashed mx-auto overflow-hidden d-flex flex-column align-items-center justify-content-center" style="background: var(--nh-bg); font-size: 0.75rem; max-width: 300px; height: 60px;">
+                    {!! str_replace('img-fluid', 'img-fluid h-100 w-100 object-fit-contain', renderAdSlot('header_banner', 'h-100 w-100')) !!}
                     @if(empty(renderAdSlot('header_banner')))
-                        <span class="badge bg-secondary mb-1">বিজ্ঞাপন</span>
-                        <p class="m-0 text-muted fw-semibold">ডিজিটাল বাংলাদেশ মেলা ২০২৬ — স্টল বুকিং চলছে!</p>
+                        <span class="badge bg-secondary mb-1" style="font-size: 0.65rem;">বিজ্ঞাপন</span>
+                        <span class="text-muted fw-semibold" style="font-size: 0.7rem;">স্টল বুকিং চলছে!</span>
                     @endif
                 </div>
             </div>

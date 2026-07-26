@@ -15,10 +15,10 @@
     <div class="card border-0 shadow-sm rounded-3 mb-4">
         <div class="card-body p-4 text-center border-dashed rounded-3 bg-light bg-opacity-25" id="uploadArea">
             <i class="fa-solid fa-cloud-arrow-up display-5 text-secondary mb-3"></i>
-            <h5 class="fw-bold text-dark mb-1">Drag & Drop Images Here</h5>
-            <p class="text-secondary small">Supports JPEG, PNG, WEBP (Max 2MB per file)</p>
+            <h5 class="fw-bold text-dark mb-1">Drag & Drop Files Here</h5>
+            <p class="text-secondary small">Supports Images (Max 10MB) & Videos (Max 50MB)</p>
             
-            <input type="file" id="fileSelector" class="d-none" multiple accept="image/*">
+            <input type="file" id="fileSelector" class="d-none" multiple accept="image/*,video/*">
             <button type="button" class="btn btn-outline-primary btn-sm px-4 rounded-pill fw-semibold mt-2" onclick="document.getElementById('fileSelector').click()">Select Files</button>
             
             <div id="uploadProgress" class="progress mt-3 d-none" style="height: 10px;">
@@ -66,8 +66,9 @@
                     </div>
 
                     <div class="d-none" id="detailsFormWrapper">
-                        <div class="mb-3 text-center border p-2 rounded bg-light">
-                            <img src="" alt="Preview" id="previewImg" class="img-fluid rounded" style="max-height: 150px; object-fit: contain;">
+                        <div class="mb-3 text-center border p-2 rounded bg-light" id="previewWrapper">
+                            <img src="" alt="Preview" id="previewImg" class="img-fluid rounded d-none" style="max-height: 150px; object-fit: contain;">
+                            <video src="" id="previewVideo" class="img-fluid rounded d-none" style="max-height: 150px; object-fit: contain;" controls></video>
                         </div>
 
                         <form id="mediaDetailsForm">
@@ -174,12 +175,28 @@
                 body: formData,
                 headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
-            .then(res => res.json())
+            .then(async res => {
+                if (!res.ok) {
+                    const errData = await res.json().catch(() => ({}));
+                    throw errData;
+                }
+                return res.json();
+            })
             .then(data => {
                 progressBar.classList.add('d-none');
                 if(data.success) {
                     loadMedia();
                 }
+            })
+            .catch(err => {
+                progressBar.classList.add('d-none');
+                let errMsg = 'Upload failed! Images (Max 10MB) & Videos (Max 50MB) allowed.';
+                if (err.errors) {
+                    errMsg = Object.values(err.errors).flat().join('\n');
+                } else if (err.message) {
+                    errMsg = err.message;
+                }
+                alert(errMsg);
             });
         }
 
@@ -198,7 +215,21 @@
                     document.getElementById('noSelectionMsg').classList.add('d-none');
                     document.getElementById('detailsFormWrapper').classList.remove('d-none');
 
-                    document.getElementById('previewImg').src = this.getAttribute('data-path');
+                    const mime = this.getAttribute('data-mime');
+                    const path = this.getAttribute('data-path');
+                    
+                    if(mime.startsWith('video/')) {
+                        document.getElementById('previewImg').classList.add('d-none');
+                        const vid = document.getElementById('previewVideo');
+                        vid.classList.remove('d-none');
+                        vid.src = path;
+                    } else {
+                        document.getElementById('previewVideo').classList.add('d-none');
+                        const img = document.getElementById('previewImg');
+                        img.classList.remove('d-none');
+                        img.src = path;
+                    }
+
                     document.getElementById('editMediaId').value = this.getAttribute('data-id');
                     document.getElementById('editName').value = this.getAttribute('data-name');
                     document.getElementById('editAlt').value = this.getAttribute('data-alt');

@@ -48,13 +48,19 @@ class MediaController extends Controller
     {
         $request->validate([
             'files' => 'required|array',
-            'files.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'files.*' => 'required|file|mimes:jpg,jpeg,png,webp,mp4,webm,avi,mov,mkv|max:51200', // max 50MB overall
         ]);
 
         $uploadedMedia = [];
 
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
+                // Custom validation: Images max 10MB, Videos max 50MB
+                $isImage = str_starts_with($file->getMimeType(), 'image/');
+                if ($isImage && $file->getSize() > 10240 * 1024) {
+                    return response()->json(['success' => false, 'message' => 'Image size cannot exceed 10MB.']);
+                }
+
                 $originalName = $file->getClientOriginalName();
                 $filename = time() . '_' . Str::slug(pathinfo($originalName, PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
                 $path = $file->storeAs('media', $filename, 'public');

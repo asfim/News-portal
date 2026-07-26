@@ -37,7 +37,8 @@ class NewsRequest extends FormRequest
             'content' => ['required', 'string'],
             'featured_image' => ['nullable', 'integer', 'exists:media,id'],
             'thumbnail' => ['nullable', 'integer', 'exists:media,id'],
-            'video_url' => ['nullable', 'url', 'max:255'],
+            'video_url' => ['nullable', 'string', 'max:255'],
+            'video_upload' => ['nullable', 'mimes:mp4,webm,ogg', 'max:51200'], // 50MB max
             'source_name' => ['nullable', 'string', 'max:255'],
             'source_url' => ['nullable', 'url', 'max:255'],
             

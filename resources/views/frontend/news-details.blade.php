@@ -50,8 +50,30 @@
                 </div>
 
                 <div class="rounded-4 overflow-hidden mb-4 position-relative">
-                    @if($news->featuredImage)
-                        <img src="{{ $news->featuredImage->file_path }}" class="w-100 img-fluid" alt="{{ $news->title }}">
+                    @if($news->video_url)
+                        @if(str_starts_with($news->video_url, '/storage/'))
+                            <video src="{{ asset($news->video_url) }}" controls class="w-100" style="max-height: 500px; background: #000;"></video>
+                        @elseif(str_contains($news->video_url, 'youtube.com') || str_contains($news->video_url, 'youtu.be'))
+                            @php
+                                $videoId = '';
+                                if (str_contains($news->video_url, 'v=')) {
+                                    parse_str(parse_url($news->video_url, PHP_URL_QUERY), $vars);
+                                    $videoId = $vars['v'] ?? '';
+                                } elseif (str_contains($news->video_url, 'youtu.be/')) {
+                                    $videoId = basename(parse_url($news->video_url, PHP_URL_PATH));
+                                }
+                            @endphp
+                            @if($videoId)
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://www.youtube.com/embed/{{ $videoId }}" title="YouTube video" allowfullscreen></iframe>
+                                </div>
+                            @endif
+                        @endif
+                    @elseif($news->featuredImage)
+                        <img src="{{ $news->featuredImage->path }}" class="w-100 img-fluid" alt="{{ $news->title }}">
+                        @if($news->featuredImage->caption)
+                            <div class="p-2 bg-dark text-white small">{{ $news->featuredImage->caption }}</div>
+                        @endif
                     @else
                         <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" class="w-100 img-fluid" alt="Fallback">
                     @endif
@@ -73,7 +95,44 @@
                 </div>
                 @endif
                 
-                {!! renderAdSlot('inside_content', 'w-100 mt-4') !!}
+                {!! renderAdSlot('inside_content', 'w-100 mt-4 mb-4') !!}
+                
+                <!-- Bottom Related News -->
+                <div class="mt-5 border-top pt-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h4 class="fw-extrabold m-0 border-start border-4 border-danger ps-2">আরও খবর</h4>
+                        <a href="{{ route('news.quick') }}" class="text-danger fw-bold text-decoration-none small">সব দেখুন <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="row g-3">
+                        @php
+                            $bottomRelated = \App\Models\News::published()
+                                ->where('category_id', $news->category_id)
+                                ->where('id', '!=', $news->id)
+                                ->latest()
+                                ->take(3)
+                                ->get();
+                        @endphp
+                        
+                        @forelse($bottomRelated as $related)
+                            <div class="col-md-4 col-sm-6">
+                                <div class="glass-card h-100 overflow-hidden d-flex flex-column hover-lift">
+                                    <div class="img-zoom-container position-relative ratio ratio-16x9">
+                                        <x-news-thumbnail :news="$related" classes="object-fit-cover" />
+                                    </div>
+                                    <div class="p-3 flex-grow-1 d-flex flex-column justify-content-between">
+                                        <h6 class="fw-bold mb-2 line-clamp-2">
+                                            <a href="{{ route('news.show', $related->slug) }}" class="text-reset text-decoration-none hover-danger">{{ $related->title }}</a>
+                                        </h6>
+                                        <span class="text-muted small" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ $related->created_at->diffForHumans() }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="col-12 text-muted small">এই ক্যাটাগরিতে আর কোনো খবর নেই।</div>
+                        @endforelse
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-4">
