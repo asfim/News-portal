@@ -42,7 +42,7 @@ if (!function_exists('renderAdSlot')) {
             // $ad->increment('views');
 
             $html = '<div class="ad-slot-wrapper ' . $class . '">';
-            
+
             if ($ad->type === 'image') {
                 $html .= '<a href="' . ($ad->redirect_url ?? '#') . '" target="_blank" rel="noopener noreferrer">';
                 $html .= '<img src="' . asset($ad->image_path) . '" alt="' . e($ad->title) . '" class="img-fluid rounded">';
@@ -50,7 +50,7 @@ if (!function_exists('renderAdSlot')) {
             } elseif ($ad->type === 'code') {
                 $html .= $ad->script_code;
             }
-            
+
             $html .= '</div>';
 
             return $html;

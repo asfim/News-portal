@@ -252,18 +252,7 @@
                     <span>Subcategories</span>
                 </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('admin.menus.index') ? 'active' : '' }}">
-                <a href="{{ route('admin.menus.index') }}">
-                    <i class="fa-solid fa-bars"></i>
-                    <span>Menu Management</span>
-                </a>
-            </li>
-            <li class="menu-item {{ request()->routeIs('admin.pages.index') ? 'active' : '' }}">
-                <a href="{{ route('admin.pages.index') }}">
-                    <i class="fa-solid fa-file"></i>
-                    <span>Static Pages</span>
-                </a>
-            </li>
+
 
             <li class="menu-header">Users & Authors</li>
             <li class="menu-item {{ request()->routeIs('admin.authors.index') ? 'active' : '' }}">

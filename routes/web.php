@@ -81,13 +81,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('tags', TagController::class)->except(['show']);
         Route::post('tags/{tag}/toggle-status', [TagController::class, 'toggleStatus'])->name('tags.toggle-status');
 
-        // Menu Management CRUD
-        Route::resource('menus', MenuController::class)->except(['show']);
-        Route::post('menus/{menu}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle-status');
+        // Menu Management CRUD (Disabled as per user request)
+        // Route::resource('menus', MenuController::class)->except(['show']);
+        // Route::post('menus/{menu}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle-status');
 
-        // Static Pages CRUD
-        Route::resource('pages', PageController::class)->except(['show']);
-        Route::post('pages/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
+        // Static Pages CRUD (Disabled as per user request)
+        // Route::resource('pages', PageController::class)->except(['show']);
+        // Route::post('pages/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
 
         // Authors CRUD
         Route::resource('authors', AuthorController::class)->except(['show']);

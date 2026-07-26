@@ -11,11 +11,7 @@
             @if($featured)
             <div class="hero-banner position-relative overflow-hidden rounded-4 shadow-lg h-100" style="min-height: 520px;">
                 <div class="img-zoom-container w-100 h-100 position-absolute top-0 start-0">
-                    @if($featured->featuredImage)
-                        <img src="{{ $featured->featuredImage->path }}" class="w-100 h-100 object-fit-cover" alt="{{ $featured->title }}">
-                    @else
-                        <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop" class="w-100 h-100 object-fit-cover" alt="Hero">
-                    @endif
+                    <x-news-thumbnail :news="$featured" classes="w-100 h-100 object-fit-cover" />
                 </div>
                 <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(7,11,18,0) 20%, rgba(7,11,18,0.95) 100%);"></div>
 
