@@ -35,11 +35,11 @@ test('admin can view media library and upload assets', function () {
 
     $uploadResponse->assertRedirect();
     $this->assertDatabaseHas('media', ['filename' => 'time_avatar.jpg']); // slugified & prepended time in controller, wait, since we prepended time in controller, let's assert by name!
-    
+
     $media = Media::first();
     expect($media)->not->toBeNull();
     expect($media->name)->toBe('avatar');
-    
+
     // Assert physical file exists in fake storage
     Storage::disk('public')->assertExists('media/' . $media->filename);
 });

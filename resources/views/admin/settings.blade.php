@@ -18,6 +18,17 @@
         </div>
     @endif
 
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="card border-0 shadow-sm rounded-3">
         <div class="card-body p-0">
             <div class="row g-0">
@@ -43,14 +54,15 @@
                 </div>
 
                 <!-- Form Content Side -->
-                <div class="col-md-9">
-                    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" class="p-5">
-                        @csrf
+                <div class="col-md-9 p-4 p-md-5">
+                    <div class="tab-content" id="settingsTabsContent">
                         
-                        <div class="tab-content" id="settingsTabsContent">
-                            
-                            <!-- 1. General Tab -->
-                            <div class="tab-pane fade show active" id="general" role="tabpanel">
+                        <!-- 1. General Tab -->
+                        <div class="tab-pane fade show active" id="general" role="tabpanel">
+                            <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" novalidate>
+                                @csrf
+                                <input type="hidden" name="form_type" value="general">
+                                
                                 <h4 class="fw-bold mb-4">General Settings</h4>
                                 
                                 <div class="mb-4">
@@ -85,10 +97,19 @@
                                     <label for="footer_copyright" class="form-label fw-semibold text-secondary">Footer Copyright Text</label>
                                     <input type="text" class="form-control py-3" id="footer_copyright" name="footer_copyright" value="{{ \App\Models\Setting::get('footer_copyright', '© '.now()->format('Y').' News Portal. All Rights Reserved.') }}">
                                 </div>
-                            </div>
 
-                            <!-- 2. Contact Tab -->
-                            <div class="tab-pane fade" id="contact" role="tabpanel">
+                                <div class="border-top border-light mt-5 pt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save General Settings</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 2. Contact Tab -->
+                        <div class="tab-pane fade" id="contact" role="tabpanel">
+                            <form action="{{ route('admin.settings.update') }}" method="POST" novalidate>
+                                @csrf
+                                <input type="hidden" name="form_type" value="contact">
+
                                 <h4 class="fw-bold mb-4">Contact Information</h4>
                                 
                                 <div class="row g-4 mb-4">
@@ -106,10 +127,19 @@
                                     <label for="address" class="form-label fw-semibold text-secondary">Office Address</label>
                                     <textarea class="form-control" id="address" name="address" rows="3" placeholder="Enter physical location address">{{ \App\Models\Setting::get('address') }}</textarea>
                                 </div>
-                            </div>
 
-                            <!-- 3. Social Tab -->
-                            <div class="tab-pane fade" id="social" role="tabpanel">
+                                <div class="border-top border-light mt-5 pt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save Contact Info</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 3. Social Tab -->
+                        <div class="tab-pane fade" id="social" role="tabpanel">
+                            <form action="{{ route('admin.settings.update') }}" method="POST" novalidate>
+                                @csrf
+                                <input type="hidden" name="form_type" value="social">
+
                                 <h4 class="fw-bold mb-4">Social Media Profile Links</h4>
                                 
                                 <div class="row g-4 mb-4">
@@ -138,10 +168,19 @@
                                     <label for="telegram" class="form-label fw-semibold text-secondary"><i class="fa-brands fa-telegram text-info me-2"></i> Telegram Channel URL</label>
                                     <input type="url" class="form-control py-3" id="telegram" name="telegram" value="{{ \App\Models\Setting::get('telegram') }}" placeholder="https://t.me/channel">
                                 </div>
-                            </div>
 
-                            <!-- 4. SEO Tab -->
-                            <div class="tab-pane fade" id="seo" role="tabpanel">
+                                <div class="border-top border-light mt-5 pt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save Social Links</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 4. SEO Tab -->
+                        <div class="tab-pane fade" id="seo" role="tabpanel">
+                            <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data" novalidate>
+                                @csrf
+                                <input type="hidden" name="form_type" value="seo">
+
                                 <h4 class="fw-bold mb-4">SEO & Tracking Integrations</h4>
                                 
                                 <div class="mb-4">
@@ -177,12 +216,56 @@
                                         <input type="text" class="form-control py-3" id="facebook_pixel_id" name="facebook_pixel_id" value="{{ \App\Models\Setting::get('facebook_pixel_id') }}" placeholder="1234567890">
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- 5. Features Tab -->
-                            <div class="tab-pane fade" id="features" role="tabpanel">
+                                <div class="border-top border-light mt-5 pt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save SEO Settings</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 5. Features Tab -->
+                        <div class="tab-pane fade" id="features" role="tabpanel">
+                            <form action="{{ route('admin.settings.update') }}" method="POST" novalidate>
+                                @csrf
+                                <input type="hidden" name="form_type" value="features">
+
                                 <h4 class="fw-bold mb-4">Features & Modules Toggles</h4>
                                 
+                                <div class="card border-0 bg-light bg-opacity-50 p-4 rounded-3 mb-4">
+                                    <h5 class="fw-bold text-dark mb-3">Homepage Content Layout</h5>
+                                    
+                                    @php
+                                        $selectedCats = json_decode(\App\Models\Setting::get('homepage_categories', '[]'), true) ?? [];
+                                        $techCat = \App\Models\Setting::get('tech_category', 'technology');
+                                    @endphp
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold text-secondary">Quick News Grid Categories</label>
+                                        <div class="d-flex flex-wrap gap-3 p-3 bg-white border border-light-subtle rounded-3">
+                                            @if(isset($categories))
+                                                @foreach($categories as $category)
+                                                    <div class="form-check mb-0">
+                                                        <input class="form-check-input" type="checkbox" name="homepage_categories[]" id="cat_{{ $category->id }}" value="{{ $category->slug }}" {{ is_array($selectedCats) && in_array($category->slug, $selectedCats) ? 'checked' : '' }}>
+                                                        <label class="form-check-label cursor-pointer" for="cat_{{ $category->id }}">{{ $category->name }}</label>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        <div class="text-secondary small mt-2">Check the categories you want to appear in the 4-column quick news grid.</div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="tech_category" class="form-label fw-semibold text-secondary">Special/Tech Section Category</label>
+                                        <select class="form-select py-3" id="tech_category" name="tech_category">
+                                            @if(isset($categories))
+                                                @foreach($categories as $category)
+                                                    <option value="{{ $category->slug }}" {{ $techCat == $category->slug ? 'selected' : '' }}>{{ $category->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="card border-0 bg-light bg-opacity-50 p-4 rounded-3 mb-4">
                                     <div class="form-check form-switch d-flex justify-content-between align-items-center ps-0 mb-3">
                                         <div>
@@ -212,14 +295,13 @@
                                         <input class="form-check-input ms-0 border-secondary-subtle" type="checkbox" id="registration_status" name="registration_status" value="1" {{ \App\Models\Setting::get('registration_status', '1') === '1' ? 'checked' : '' }}>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        <!-- Form Submit Button -->
-                        <div class="border-top border-light mt-5 pt-4 text-end">
-                            <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save Settings</button>
+                                <div class="border-top border-light mt-5 pt-4 text-end">
+                                    <button type="submit" class="btn btn-primary px-5 py-3 rounded-pill fw-semibold shadow-sm"><i class="fa-solid fa-circle-check me-2"></i> Save Features</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

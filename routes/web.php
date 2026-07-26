@@ -22,9 +22,17 @@ use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\MenuController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\Frontend\HomeController;
+
+// Frontend Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/latest-news', [HomeController::class, 'latestNews'])->name('news.latest');
+Route::get('/quick-news', [HomeController::class, 'quickNews'])->name('news.quick');
+Route::get('/news/{slug}', [HomeController::class, 'showNews'])->name('news.show');
+Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category');
+Route::get('/tag/{slug}', [HomeController::class, 'tag'])->name('tag');
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+Route::post('/newsletter/subscribe', [HomeController::class, 'subscribe'])->name('newsletter.subscribe');
 
 Route::middleware('guest')->group(function () {
     // Login
@@ -44,7 +52,7 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-    
+
     // User dashboard
     Route::get('dashboard', function () {
         return view('user.dashboard');
