@@ -61,6 +61,115 @@
             </div>
         </div>
     </section>
+    <!-- LATEST FEATURED NEWS GRID -->
+    @if(isset($latestFeaturedNews) && $latestFeaturedNews->count() > 0)
+    <section class="mb-5 pb-4 border-bottom" data-aos="fade-up">
+        <div class="row g-4">
+            
+            <!-- Left Column: 2 News -->
+            <div class="col-lg-3 border-end pe-lg-4">
+                <div class="d-flex flex-column h-100 gap-4">
+                    @foreach($latestFeaturedNews->slice(1, 2) as $newsItem)
+                    <div class="{{ $loop->last ? '' : 'border-bottom pb-4' }}">
+                        <div class="row g-2 mb-2">
+                            <div class="col-7">
+                                <h4 class="h6 fw-bold mb-0 lh-base"><a href="{{ route('news.show', $newsItem->slug) }}" class="text-reset text-decoration-none hover-danger">{{ $newsItem->title }}</a></h4>
+                            </div>
+                            <div class="col-5">
+                                <div class="ratio ratio-4x3 bg-light rounded overflow-hidden">
+                                    <x-news-thumbnail :news="$newsItem" classes="w-100 h-100 object-fit-cover" />
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted small m-0 mb-2">{{ Str::limit($newsItem->short_description, 80) }}</p>
+                        <span class="text-muted small" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ $newsItem->created_at->diffForHumans() }}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Center Column: 1 Main Feature + 2 Bottom -->
+            <div class="col-lg-6 px-lg-4 border-end">
+                @if($mainFeature = $latestFeaturedNews->first())
+                <div class="mb-4">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-7">
+                            @if(!empty($mainFeature->gallery_images) && count($mainFeature->gallery_images) >= 4)
+                                <div class="row g-1">
+                                    @foreach(array_slice($mainFeature->gallery_images, 0, 4) as $img)
+                                    <div class="col-6">
+                                        <div class="ratio ratio-4x3 bg-light">
+                                            <img src="{{ asset($img) }}" alt="Gallery Image" class="w-100 h-100 object-fit-cover rounded">
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            @else
+                                <div class="ratio ratio-16x9 bg-light rounded overflow-hidden">
+                                    <x-news-thumbnail :news="$mainFeature" classes="w-100 h-100 object-fit-cover" />
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-5 d-flex flex-column justify-content-center">
+                            <h2 class="fw-black lh-sm h3 mb-3"><a href="{{ route('news.show', $mainFeature->slug) }}" class="text-reset text-decoration-none hover-danger">{{ $mainFeature->title }}</a></h2>
+                            <p class="fs-6 text-muted mb-3">{{ Str::limit($mainFeature->short_description, 100) }}</p>
+                            <span class="text-muted small"><i class="fa-regular fa-clock me-1"></i> {{ $mainFeature->created_at->diffForHumans() }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endif
+                
+                <!-- Bottom 2 News -->
+                <div class="row g-4 pt-3 border-top">
+                    @foreach($latestFeaturedNews->slice(3, 2) as $newsItem)
+                    <div class="col-sm-6">
+                        <div class="row g-2">
+                            <div class="col-8">
+                                <h5 class="h6 fw-bold mb-2 lh-base"><a href="{{ route('news.show', $newsItem->slug) }}" class="text-reset text-decoration-none hover-danger">{{ $newsItem->title }}</a></h5>
+                                <p class="text-muted small m-0 mb-2">{{ Str::limit($newsItem->short_description, 60) }}</p>
+                                <span class="text-muted small" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ $newsItem->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div class="col-4">
+                                <div class="ratio ratio-1x1 bg-light rounded overflow-hidden">
+                                    <x-news-thumbnail :news="$newsItem" classes="w-100 h-100 object-fit-cover" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Right Column: Ad -->
+            <div class="col-lg-3 ps-lg-4">
+                <div class="sticky-top" style="top: 90px;">
+                    <div class="mb-4">
+                        {!! renderAdSlot('sidebar_top', 'w-100 rounded overflow-hidden') !!}
+                    </div>
+                    
+                    @if(isset($latestFeaturedNews[5]))
+                    @php $newsItem = $latestFeaturedNews[5]; @endphp
+                    <div class="pt-2">
+                        <div class="row g-2 mb-2">
+                            <div class="col-7">
+                                <h4 class="h5 fw-bold mb-0 lh-base"><a href="{{ route('news.show', $newsItem->slug) }}" class="text-primary text-decoration-none hover-danger">{{ $newsItem->title }}</a></h4>
+                            </div>
+                            <div class="col-5">
+                                <div class="ratio ratio-4x3 bg-light rounded overflow-hidden">
+                                    <x-news-thumbnail :news="$newsItem" classes="w-100 h-100 object-fit-cover" />
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-muted small m-0 mb-2">{{ Str::limit($newsItem->short_description, 100) }}</p>
+                        <span class="text-muted small" style="font-size: 0.75rem;"><i class="fa-regular fa-clock me-1"></i> {{ $newsItem->created_at->diffForHumans() }}</span>
+                    </div>
+                    @endif
+                </div>
+            </div>
+
+        </div>
+    </section>
+    @endif
 
     <!-- QUICK NEWS HORIZONTAL GRID -->
     @if($categorySections->count() > 0)

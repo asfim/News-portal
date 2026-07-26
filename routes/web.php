@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
         // News CRUD
         Route::get('categories/{category}/subcategories', [NewsController::class, 'getSubcategories'])->name('categories.subcategories');
         Route::resource('news', NewsController::class)->except(['show']);
+        Route::post('editor-upload', [\App\Http\Controllers\Admin\EditorUploadController::class, 'upload'])->name('editor.upload');
 
         // Tags CRUD
         Route::resource('tags', TagController::class)->except(['show']);

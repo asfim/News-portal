@@ -123,6 +123,21 @@
                                 <input type="url" class="form-control py-3" id="video_url" name="video_url" value="{{ old('video_url', str_starts_with($news->video_url ?? '', '/storage/news_videos') ? '' : $news->video_url) }}" placeholder="https://youtube.com/watch?v=...">
                             </div>
 
+                            <div class="mb-4">
+                                <label for="gallery_images" class="form-label fw-semibold text-secondary">Gallery Images (Max 4, Optional)</label>
+                                @if(!empty($news->gallery_images))
+                                    <div class="d-flex gap-2 mb-3 flex-wrap">
+                                        @foreach($news->gallery_images as $img)
+                                            <img src="{{ asset($img) }}" alt="Gallery Image" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
+                                        @endforeach
+                                    </div>
+                                    <small class="d-block text-muted mb-2">Uploading new images will append/replace up to 4 total images.</small>
+                                @endif
+                                <input type="file" class="form-control" id="gallery_images" name="gallery_images[]" accept="image/*" multiple>
+                                <div class="form-text mt-2 text-muted">Select up to 4 images to create a gallery for this news.</div>
+                            </div>
+
+
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="source_name" class="form-label fw-semibold text-secondary">Source Agency Name</label>
@@ -251,6 +266,11 @@
                             <label class="form-check-label fw-semibold text-dark small" for="editor_choice">Editor's Pick</label>
                             <input class="form-check-input ms-0 border-secondary-subtle float-end" style="width: 2.2em; height: 1.1em;" type="checkbox" id="editor_choice" name="editor_choice" value="1" {{ old('editor_choice', $news->editor_choice) ? 'checked' : '' }}>
                         </div>
+
+                        <div class="form-check form-switch ps-0 mb-3">
+                            <label class="form-check-label fw-bold text-danger small" for="is_latest">Latest News (Max 6)</label>
+                            <input class="form-check-input ms-0 border-danger float-end" style="width: 2.2em; height: 1.1em;" type="checkbox" id="is_latest" name="is_latest" value="1" {{ old('is_latest', $news->is_latest) ? 'checked' : '' }}>
+                        </div>
                     </div>
                 </div>
 
@@ -296,7 +316,10 @@
         // 1. CKEditor Initialization
         ClassicEditor
             .create(document.querySelector('#wysiwygEditor'), {
-                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'undo', 'redo' ]
+                toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'insertTable', 'uploadImage', 'undo', 'redo' ],
+                ckfinder: {
+                    uploadUrl: '{{ route('admin.editor.upload', ['_token' => csrf_token()]) }}'
+                }
             })
             .then(editor => {
                 editor.model.document.on('change:data', () => {

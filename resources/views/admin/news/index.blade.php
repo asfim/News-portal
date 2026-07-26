@@ -108,6 +108,15 @@
                                             @if ($item->featuredImage)
                                                 <img src="{{ $item->featuredImage->path }}" alt="{{ $item->title }}"
                                                     class="rounded-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                            @elseif (!empty($item->video_url))
+                                                @if(str_starts_with($item->video_url, '/storage/'))
+                                                    <video src="{{ asset($item->video_url) }}#t=0.1" class="rounded-3" style="width: 50px; height: 50px; object-fit: cover;" muted preload="metadata"></video>
+                                                @else
+                                                    <div class="bg-dark text-danger rounded-3 d-flex align-items-center justify-content-center"
+                                                        style="width: 50px; height: 50px;">
+                                                        <i class="fa-brands fa-youtube fs-4"></i>
+                                                    </div>
+                                                @endif
                                             @else
                                                 <div class="bg-light text-secondary rounded-3 d-flex align-items-center justify-content-center"
                                                     style="width: 50px; height: 50px;">

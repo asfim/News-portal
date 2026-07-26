@@ -31,6 +31,8 @@ class News extends Model
         'featured_news',
         'trending_news',
         'editor_choice',
+        'is_latest',
+        'gallery_images',
         'status',
         'publish_at',
         'views',
@@ -45,6 +47,8 @@ class News extends Model
         'featured_news' => 'boolean',
         'trending_news' => 'boolean',
         'editor_choice' => 'boolean',
+        'is_latest' => 'boolean',
+        'gallery_images' => 'array',
         'publish_at' => 'datetime',
         'views' => 'integer',
     ];

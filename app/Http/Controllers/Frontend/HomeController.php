@@ -37,7 +37,10 @@ class HomeController extends Controller
         // Get most read news (order by views)
         $mostRead = News::published()->orderBy('views', 'desc')->with('category')->take(5)->get();
 
-        return view('frontend.home', compact('featured', 'recent', 'trending', 'mostRead', 'categorySections', 'videoNews'));
+        // Get Latest News (feature flag)
+        $latestFeaturedNews = News::published()->where('is_latest', true)->latest()->take(6)->get();
+
+        return view('frontend.home', compact('featured', 'recent', 'trending', 'mostRead', 'categorySections', 'videoNews', 'latestFeaturedNews'));
     }
 
     public function showNews($slug)

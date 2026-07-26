@@ -6,11 +6,20 @@
 <main class="container-fluid px-lg-5 py-4">
 
     <!-- ARTICLE READING SECTION -->
-    <section id="article" class="pt-4" data-aos="fade-up">
+    <section id="article" class="pt-4 border-top" data-aos="fade-up">
         <div class="row g-5">
             <div class="col-lg-8">
                 <!-- Reading Progress Bar -->
                 <div id="readingProgress" class="position-fixed top-0 start-0 bg-danger" style="height: 4px; z-index: 2050; width: 0%;"></div>
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb m-0 small fw-medium">
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-decoration-none text-muted"><i class="fa-solid fa-house me-1"></i> হোম</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('category', $news->category->slug) }}" class="text-decoration-none text-muted">{{ $news->category->name }}</a></li>
+                        <li class="breadcrumb-item active text-danger" aria-current="page">বর্তমান খবর</li>
+                    </ol>
+                </nav>
 
                 <span class="badge bg-danger text-uppercase px-3 py-2 rounded-pill fw-bold mb-3">{{ $news->category->name }}</span>
                 

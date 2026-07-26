@@ -74,6 +74,14 @@ class NewsController extends Controller
         $data['featured_news'] = $request->has('featured_news');
         $data['trending_news'] = $request->has('trending_news');
         $data['editor_choice'] = $request->has('editor_choice');
+        $data['is_latest'] = $request->has('is_latest');
+
+        if ($data['is_latest']) {
+            $latestCount = News::where('is_latest', true)->count();
+            if ($latestCount >= 6) {
+                return redirect()->back()->withInput()->with('error', 'সর্বোচ্চ ৬টি নিউজ Latest হিসেবে রাখা যাবে। দয়া করে আগে অন্য কোনো নিউজ থেকে Latest অপশনটি বন্ধ করুন।');
+            }
+        }
 
         // Handle publish_at scheduling
         if ($data['status'] === 'scheduled' && !empty($data['publish_at'])) {
@@ -85,6 +93,16 @@ class NewsController extends Controller
         if ($request->hasFile('video_upload')) {
             $path = $request->file('video_upload')->store('news_videos', 'public');
             $data['video_url'] = '/storage/' . $path;
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            $gallery = [];
+            foreach ($request->file('gallery_images') as $file) {
+                if (count($gallery) >= 4) break;
+                $path = $file->store('news_galleries', 'public');
+                $gallery[] = '/storage/' . $path;
+            }
+            $data['gallery_images'] = $gallery;
         }
 
         $news = News::create($data);
@@ -127,6 +145,16 @@ class NewsController extends Controller
         $data['featured_news'] = $request->has('featured_news');
         $data['trending_news'] = $request->has('trending_news');
         $data['editor_choice'] = $request->has('editor_choice');
+        $data['is_latest'] = $request->has('is_latest');
+
+        if ($data['is_latest']) {
+            $latestCount = News::where('is_latest', true)->where('id', '!=', $news->id)->count();
+            if ($latestCount >= 6) {
+                return redirect()->back()->withInput()->with('error', 'সর্বোচ্চ ৬টি নিউজ Latest হিসেবে রাখা যাবে। দয়া করে আগে অন্য কোনো নিউজ থেকে Latest অপশনটি বন্ধ করুন।');
+            }
+        } else {
+            $data['is_latest'] = false;
+        }
 
         // Handle publish_at scheduling
         if ($data['status'] === 'scheduled' && !empty($data['publish_at'])) {
@@ -138,6 +166,16 @@ class NewsController extends Controller
         if ($request->hasFile('video_upload')) {
             $path = $request->file('video_upload')->store('news_videos', 'public');
             $data['video_url'] = '/storage/' . $path;
+        }
+
+        if ($request->hasFile('gallery_images')) {
+            $gallery = $news->gallery_images ?? [];
+            foreach ($request->file('gallery_images') as $file) {
+                if (count($gallery) >= 4) break;
+                $path = $file->store('news_galleries', 'public');
+                $gallery[] = '/storage/' . $path;
+            }
+            $data['gallery_images'] = $gallery;
         }
 
         $news->update($data);

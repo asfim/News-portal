@@ -47,6 +47,12 @@ class NewsRequest extends FormRequest
             'featured_news' => ['nullable', 'boolean'],
             'trending_news' => ['nullable', 'boolean'],
             'editor_choice' => ['nullable', 'boolean'],
+            'is_latest' => ['nullable', 'boolean'],
+            
+            // Gallery
+            'gallery_images' => ['nullable', 'array', 'max:4'],
+            'gallery_images.*' => ['image', 'mimes:jpeg,png,jpg,gif,webp', 'max:5120'],
+            
             
             // Status and Date
             'status' => ['required', 'string', Rule::in(['draft', 'pending', 'approved', 'published', 'scheduled', 'rejected', 'archived'])],
