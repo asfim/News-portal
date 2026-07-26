@@ -243,7 +243,13 @@
             <li class="menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                 <a href="{{ route('admin.categories.index') }}">
                     <i class="fa-solid fa-folder-tree"></i>
-                    <span>Categories & Subcategories</span>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->routeIs('admin.subcategories.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.subcategories.index') }}">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span>Subcategories</span>
                 </a>
             </li>
             <li class="menu-item {{ request()->routeIs('admin.menus.index') ? 'active' : '' }}">

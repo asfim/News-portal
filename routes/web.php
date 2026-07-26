@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\AuthorController;
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
         // Categories CRUD
         Route::resource('categories', CategoryController::class)->except(['show']);
         Route::post('categories/{category}/toggle-status', [CategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
+
+        // Subcategories CRUD
+        Route::resource('subcategories', SubcategoryController::class)->except(['show']);
+        Route::post('subcategories/{subcategory}/toggle-status', [SubcategoryController::class, 'toggleStatus'])->name('subcategories.toggle-status');
 
         // News CRUD
         Route::get('categories/{category}/subcategories', [NewsController::class, 'getSubcategories'])->name('categories.subcategories');
