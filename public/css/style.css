@@ -77,12 +77,25 @@ body {
 .nav-link-custom {
     color: var(--nh-text);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 22px; /* User requested 22px for header */
     padding: 0.75rem 0.9rem;
     position: relative;
     text-decoration: none;
     transition: color 0.2s ease;
 }
+
+/* Paragraph styling requested by user */
+p, .text-muted.small, .small, small {
+    font-size: 19px !important;
+    line-height: 1.7;
+}
+
+/* Header (Heading) styling requested by user */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-size: 22px !important;
+}
+
 .nav-link-custom:hover, .nav-link-custom.active {
     color: var(--nh-accent);
 }

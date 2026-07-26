@@ -14,15 +14,16 @@
                         <i class="fa-solid fa-house me-1"></i> হোম
                     </a>
                 </li>
-                @foreach (getMenus() as $menu)
+                @foreach (\App\Models\Category::where('status', true)->whereNull('parent_id')->orderBy('name', 'asc')->get() as $category)
                     <li class="nav-item">
-                        <a class="nav-link-custom" href="{{ $menu->url }}"
-                            target="{{ $menu->target }}">{{ $menu->name }}</a>
+                        <a class="nav-link-custom {{ request()->is('category/'.$category->slug) ? 'active' : '' }}" href="{{ route('category', $category->slug) }}">
+                            {{ $category->name }}
+                        </a>
                     </li>
                 @endforeach
             </ul>
 
-            <div class="d-none d-lg-block">
+            {{-- <div class="d-none d-lg-block">
                 <div class="dropdown">
                     <button class="btn btn-link text-reset text-decoration-none fw-bold dropdown-toggle" type="button"
                         data-bs-toggle="dropdown">
@@ -42,7 +43,7 @@
                                     class="fa-solid fa-bolt me-2"></i> ই-পেপার</a></li>
                     </ul>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </nav>

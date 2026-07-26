@@ -11,7 +11,7 @@
                 <span>জরুরি সংবাদ</span>
             </div>
             <div class="ticker-wrap flex-grow-1">
-                <div class="ticker-move text-dark fw-semibold" style="font-size: 0.95rem;">
+                <div class="ticker-move text-dark fw-semibold" style="font-size: 22px;">
                     @foreach($breakingNews as $news)
                         <span class="me-5">
                             <i class="fa-solid fa-angle-right text-danger me-1"></i> 
