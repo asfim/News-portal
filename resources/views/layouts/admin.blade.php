@@ -224,6 +224,40 @@
             display: block;
             opacity: 1;
         }
+
+        /* Mobile Responsive Adjustments */
+        @media (max-width: 767.98px) {
+            .content-area {
+                padding: 15px !important;
+            }
+            .top-navbar {
+                padding: 0 15px !important;
+                height: 60px !important;
+            }
+            .sidebar-brand {
+                padding: 15px 20px !important;
+            }
+            .menu-item a {
+                padding: 10px 20px !important;
+            }
+            /* Form input spacing and container adjustments */
+            .card-body.p-md-5, .p-md-5 {
+                padding: 1.5rem !important;
+            }
+            /* Responsive table formatting */
+            .table th, .table td {
+                padding: 0.5rem !important;
+                font-size: 0.85rem !important;
+            }
+            /* Buttons and typography sizing */
+            .btn {
+                padding: 0.375rem 0.75rem !important;
+                font-size: 0.85rem !important;
+            }
+            h2 {
+                font-size: 1.5rem !important;
+            }
+        }
     </style>
 </head>
 <body>

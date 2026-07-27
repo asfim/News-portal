@@ -116,9 +116,33 @@ class HomeController extends Controller
 
     public function search(Request $request)
     {
-        // Placeholder for search page
         $query = $request->input('q');
-        return "Search results for: " . $query;
+        
+        $news = \App\Models\News::published();
+        
+        if (!empty($query)) {
+            $news->where(function($q) use ($query) {
+                $q->where('title', 'like', "%{$query}%")
+                  ->orWhere('short_description', 'like', "%{$query}%")
+                  ->orWhere('content', 'like', "%{$query}%")
+                  ->orWhereHas('category', function($catQuery) use ($query) {
+                      $catQuery->where('name', 'like', "%{$query}%");
+                  })
+                  ->orWhereHas('subcategory', function($subQuery) use ($query) {
+                      $subQuery->where('name', 'like', "%{$query}%");
+                  })
+                  ->orWhereHas('author', function($authorQuery) use ($query) {
+                      $authorQuery->where('name', 'like', "%{$query}%");
+                  })
+                  ->orWhereHas('tags', function($tagQuery) use ($query) {
+                      $tagQuery->where('name', 'like', "%{$query}%");
+                  });
+            });
+        }
+        
+        $newsResults = $news->latest()->paginate(12)->withQueryString();
+        
+        return view('frontend.search', compact('newsResults', 'query'));
     }
 
     public function showPage($slug)
