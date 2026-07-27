@@ -381,7 +381,7 @@
                         <button type="submit" class="btn btn-danger rounded-pill px-4 fw-bold text-nowrap">সাবস্ক্রাইব
                             →</button>
                     </form>
-                    <small class="text-muted d-block mt-2" style="font-size: 0.75rem;">আমরা আপনার তথ্যের সুরক্ষা নিশ্চিত
+                    <small class="text-white d-block mt-2" style="font-size: 0.75rem;">আমরা আপনার তথ্যের সুরক্ষা নিশ্চিত
                         করি। যেকোনো সময় আনসাবস্ক্রাইব করতে পারবেন।</small>
                 </div>
             </div>

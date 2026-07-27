@@ -67,7 +67,7 @@
                     @endif
                 </div>
             </div>
-            <div class="col-3 col-md-4 text-end">
+            <div class="col-md-4 d-none d-md-block text-end">
                 <div class="d-flex align-items-center justify-content-end gap-2 gap-md-3">
                     <button onclick="openSearch()" class="btn btn-outline-secondary rounded-circle" style="width:42px; height:42px;" aria-label="Search">
                         <i class="fa-solid fa-magnifying-glass"></i>

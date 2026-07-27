@@ -35,7 +35,7 @@
 
             <div class="col-lg-4">
                 <h5 class="text-white fw-bold mb-3">মোবাইল অ্যাপস ডাউনলোড করুন</h5>
-                <p class="small text-muted">যেকোনো মুহূর্তে সর্বশেষ সংবাদ সরাসরি পেতে আমাদের অ্যাপ ডাউনলোড করুন।</p>
+                <p class="small text-white ">যেকোনো মুহূর্তে সর্বশেষ সংবাদ সরাসরি পেতে আমাদের অ্যাপ ডাউনলোড করুন।</p>
                 <div class="d-flex gap-2">
                     <a href="#" class="btn btn-outline-light btn-sm rounded-3"><i class="fa-brands fa-google-play me-1"></i> Google Play</a>
                     <a href="#" class="btn btn-outline-light btn-sm rounded-3"><i class="fa-brands fa-apple me-1"></i> App Store</a>
@@ -45,7 +45,7 @@
 
         <div class="pt-3 d-flex flex-column flex-md-row align-items-center justify-content-between small">
             <p class="m-0">{{ \App\Models\Setting::get('footer_copyright', '© '.date('Y').' NEWSHUB PRO. সর্বস্বত্ব সংরক্ষিত।') }}</p>
-            <p class="m-0 text-muted">ডিজাইন ও ডেভেলপমেন্ট: নিউজহাব টেক টিম</p>
+            <p class="m-0 text-white">ডিজাইন ও ডেভেলপমেন্ট: নিউজহাব টেক টিম</p>
         </div>
     </div>
 </footer>

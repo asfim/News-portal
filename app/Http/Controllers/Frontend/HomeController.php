@@ -98,8 +98,20 @@ class HomeController extends Controller
 
     public function subscribe(Request $request)
     {
-        // Placeholder for newsletter subscription
-        return redirect()->back()->with('success', 'Thank you for subscribing!');
+        $request->validate([
+            'email' => 'required|email|unique:newsletters,email',
+        ], [
+            'email.required' => 'ইমেইল এড্রেস আবশ্যক।',
+            'email.email' => 'সঠিক ইমেইল এড্রেস প্রদান করুন।',
+            'email.unique' => 'এই ইমেইলটি ইতিপূর্বে সাবস্ক্রাইব করা হয়েছে।',
+        ]);
+
+        \App\Models\Newsletter::create([
+            'email' => $request->input('email'),
+            'status' => true,
+        ]);
+
+        return redirect()->back()->with('success', 'আমাদের নিউজলেটারে সাবস্ক্রাইব করার জন্য ধন্যবাদ!');
     }
 
     public function search(Request $request)

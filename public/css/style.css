@@ -132,16 +132,7 @@ h6,
 }
 
 
-/* Pulsing Live Badge Dot */
-.live-pulse {
-    width: 10px;
-    height: 10px;
-    background-color: var(--nh-accent);
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 0 0 0 rgba(227, 27, 35, 0.7);
-    animation: pulse 1.6s infinite;
-}
+
 
 @keyframes pulse {
     0% {
@@ -336,4 +327,18 @@ header a, .topbar a, nav a, .nav-link-custom, .nav-link-custom.active, .nav-link
 }
 [data-bs-theme="dark"] .breaking-news-bar .ticker-move i.text-danger {
     color: #FFFFFF !important;
+}
+
+/* Mobile Responsive Menu Item Spacing */
+@media (max-width: 991.98px) {
+    .navbar-nav .nav-item {
+        margin-bottom: 10px !important;
+    }
+    .navbar-nav .nav-item:last-child {
+        margin-bottom: 0 !important;
+    }
+    .navbar-nav .nav-link-custom {
+        display: block !important;
+        padding: 0.5rem 0.75rem !important;
+    }
 }

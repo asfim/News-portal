@@ -16,7 +16,8 @@
                 </li>
                 @foreach (\App\Models\Category::where('status', true)->whereNull('parent_id')->orderBy('name', 'asc')->get() as $category)
                     <li class="nav-item">
-                        <a class="nav-link-custom {{ request()->is('category/'.$category->slug) ? 'active' : '' }}" href="{{ route('category', $category->slug) }}">
+                        <a class="nav-link-custom {{ request()->is('category/' . $category->slug) ? 'active' : '' }}"
+                            href="{{ route('category', $category->slug) }}">
                             {{ $category->name }}
                         </a>
                     </li>

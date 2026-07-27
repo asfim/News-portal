@@ -37,6 +37,31 @@
     <!-- 2. MAIN NAVIGATION BAR -->
     @include('frontend.partials.navbar')
 
+    <!-- Floating Alerts/Toasts -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow-lg" role="alert" style="z-index: 9999; border-left: 5px solid #198754;">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-circle-check fs-4 me-2 text-success"></i>
+                <div>{{ session('success') }}</div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 end-0 m-4 shadow-lg" role="alert" style="z-index: 9999; border-left: 5px solid #dc3545;">
+            <div class="d-flex align-items-center">
+                <i class="fa-solid fa-triangle-exclamation fs-4 me-2 text-danger"></i>
+                <div>
+                    @foreach($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <!-- 3. BREAKING NEWS TICKER -->
     @include('frontend.partials.breaking-news')
 
