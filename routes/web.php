@@ -33,6 +33,8 @@ Route::get('/category/{slug}', [HomeController::class, 'category'])->name('categ
 Route::get('/tag/{slug}', [HomeController::class, 'tag'])->name('tag');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::post('/newsletter/subscribe', [HomeController::class, 'subscribe'])->name('newsletter.subscribe');
+Route::get('/page/{slug}', [HomeController::class, 'showPage'])->name('page.show');
+Route::post('/contact/submit', [HomeController::class, 'submitContact'])->name('contact.submit');
 
 Route::middleware('guest')->group(function () {
     // Login
@@ -85,9 +87,9 @@ Route::middleware('auth')->group(function () {
         // Route::resource('menus', MenuController::class)->except(['show']);
         // Route::post('menus/{menu}/toggle-status', [MenuController::class, 'toggleStatus'])->name('menus.toggle-status');
 
-        // Static Pages CRUD (Disabled as per user request)
-        // Route::resource('pages', PageController::class)->except(['show']);
-        // Route::post('pages/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
+        // Static Pages CRUD
+        Route::resource('pages', PageController::class)->except(['show']);
+        Route::post('pages/{page}/toggle-status', [PageController::class, 'toggleStatus'])->name('pages.toggle-status');
 
         // Authors CRUD
         Route::resource('authors', AuthorController::class)->except(['show']);

@@ -120,4 +120,38 @@ class HomeController extends Controller
         $query = $request->input('q');
         return "Search results for: " . $query;
     }
+
+    public function showPage($slug)
+    {
+        $page = \App\Models\Page::where('slug', $slug)->where('status', true)->firstOrFail();
+        return view('frontend.page', compact('page'));
+    }
+
+    public function submitContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ], [
+            'name.required' => 'নাম আবশ্যক।',
+            'email.required' => 'ইমেইল আবশ্যক।',
+            'email.email' => 'সঠিক ইমেইল দিন।',
+            'subject.required' => 'বিষয় আবশ্যক।',
+            'message.required' => 'বার্তা আবশ্যক।',
+        ]);
+
+        \App\Models\Contact::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'subject' => $request->input('subject'),
+            'message' => $request->input('message'),
+            'is_read' => false,
+        ]);
+
+        return redirect()->back()->with('success', 'আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে। আমরা শীঘ্রই যোগাযোগ করব।');
+    }
 }

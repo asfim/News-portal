@@ -279,6 +279,12 @@
                     <span>Subcategories</span>
                 </a>
             </li>
+            <li class="menu-item {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
+                <a href="{{ route('admin.pages.index') }}">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span>Dynamic Pages</span>
+                </a>
+            </li>
 
 
             <li class="menu-header">Users & Authors</li>

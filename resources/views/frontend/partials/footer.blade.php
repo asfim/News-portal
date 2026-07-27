@@ -26,10 +26,10 @@
             <div class="col-6 col-lg-2">
                 <h5 class="text-white fw-bold mb-3">তথ্য ও যোগাযোগ</h5>
                 <ul class="list-unstyled small d-flex flex-column gap-2">
-                    <li><a href="#" class="text-reset text-decoration-none hover-white">আমাদের সম্পর্কে</a></li>
-                    <li><a href="#" class="text-reset text-decoration-none hover-white">বিজ্ঞাপন মূল্য তালিকা</a></li>
-                    <li><a href="#" class="text-reset text-decoration-none hover-white">গোপনীয়তা নীতি</a></li>
-                    <li><a href="#" class="text-reset text-decoration-none hover-white">যোগাযোগ</a></li>
+                    <li><a href="{{ route('page.show', 'about-us') }}" class="text-reset text-decoration-none hover-white">আমাদের সম্পর্কে</a></li>
+                    <li><a href="{{ route('page.show', 'ad-pricing') }}" class="text-reset text-decoration-none hover-white">বিজ্ঞাপন মূল্য তালিকা</a></li>
+                    <li><a href="{{ route('page.show', 'privacy-policy') }}" class="text-reset text-decoration-none hover-white">গোপনীয়তা নীতি</a></li>
+                    <li><a href="{{ route('page.show', 'contact') }}" class="text-reset text-decoration-none hover-white">যোগাযোগ</a></li>
                 </ul>
             </div>
 
