@@ -302,3 +302,8 @@ h6,
         font-size: 0.65rem !important;
     }
 }
+
+/* Remove text-decoration from header, topbar, navigation menu, and active links */
+header a, .topbar a, nav a, .nav-link-custom, .nav-link-custom.active, .nav-link-custom:hover, .navbar-nav a {
+    text-decoration: none !important;
+}

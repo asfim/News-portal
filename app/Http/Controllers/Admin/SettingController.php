@@ -30,7 +30,7 @@ class SettingController extends Controller
                 'website_name' => 'required|string|max:255',
                 'footer_copyright' => 'nullable|string',
                 'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:1024',
-                'favicon' => 'nullable|image|mimes:png,ico|max:512',
+                'favicon' => 'nullable|file|mimes:png,ico|max:512',
             ]);
 
             Setting::set('website_name', $request->input('website_name'));

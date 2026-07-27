@@ -41,17 +41,21 @@
 <header class="py-3 border-bottom" style="background: var(--nh-surface);">
     <div class="container-fluid px-lg-5">
         <div class="row align-items-center">
-            <div class="col-9 col-md-4">
-                <a href="{{ route('home') }}" class="text-decoration-none d-flex align-items-center gap-2">
-                    <div class="bg-danger text-white fw-black px-2 px-sm-3 py-1 rounded-3 fs-3 font-en" style="letter-spacing: -1px;">
-                        NH<span class="text-dark">P</span>
-                    </div>
-                    <div>
-                        <h1 class="h3 fw-extrabold m-0 text-uppercase font-en header-logo-title" style="color: var(--nh-text); line-height: 1;">
-                            NEWSHUB<span class="text-danger">PRO</span>
-                        </h1>
-                        <span class="text-muted d-block header-tagline">খবরের সাথে, সবসময়</span>
-                    </div>
+            <div class="col-12 col-md-4">
+                <a href="{{ route('home') }}" class="text-decoration-none d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+                    @if($logo = \App\Models\Setting::get('logo'))
+                        <img src="{{ asset($logo) }}" alt="Logo" class="header-logo-img" style="max-height: 55px; width: auto; object-fit: contain;">
+                    @else
+                        <div class="bg-danger text-white fw-black px-2 px-sm-3 py-1 rounded-3 fs-3 font-en" style="letter-spacing: -1px;">
+                            NH<span class="text-dark">P</span>
+                        </div>
+                        <div>
+                            <h1 class="h3 fw-extrabold m-0 text-uppercase font-en header-logo-title" style="color: var(--nh-text); line-height: 1;">
+                                NEWSHUB<span class="text-danger">PRO</span>
+                            </h1>
+                            <span class="text-muted d-block header-tagline">খবরের সাথে, সবসময়</span>
+                        </div>
+                    @endif
                 </a>
             </div>
             <div class="col-md-4 d-none d-md-block text-center">

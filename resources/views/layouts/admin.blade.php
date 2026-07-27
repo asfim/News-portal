@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon -->
+    @if($favicon = \App\Models\Setting::get('favicon'))
+        <link rel="shortcut icon" href="{{ asset($favicon) }}" type="image/x-icon">
+    @else
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    @endif
+
     <title>@yield('title', 'Admin Panel') - News Portal</title>
     <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -256,12 +264,7 @@
                     <span>Create Article</span>
                 </a>
             </li>
-            <li class="menu-item {{ request()->routeIs('admin.tags.index') ? 'active' : '' }}">
-                <a href="{{ route('admin.tags.index') }}">
-                    <i class="fa-solid fa-tags"></i>
-                    <span>Tags</span>
-                </a>
-            </li>
+
 
             <li class="menu-header">Structure</li>
             <li class="menu-item {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">

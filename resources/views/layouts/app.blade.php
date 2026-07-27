@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="NewsHub Pro - খবরের সাথে, সবসময়। সর্বশেষ বাংলা সংবাদ, রাজনীতি, অর্থনীতি, খেলা ও বিনোদন।">
+    
+    <!-- Favicon -->
+    @if($favicon = \App\Models\Setting::get('favicon'))
+        <link rel="shortcut icon" href="{{ asset($favicon) }}" type="image/x-icon">
+    @else
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    @endif
+
     <title>@yield('title', 'NewsHub Pro | খবরের সাথে, সবসময়')</title>
 
     <!-- Google Fonts (Bengali & English) -->
