@@ -41,16 +41,16 @@
 <header class="py-3 border-bottom" style="background: var(--nh-surface);">
     <div class="container-fluid px-lg-5">
         <div class="row align-items-center">
-            <div class="col-6 col-md-4">
+            <div class="col-9 col-md-4">
                 <a href="{{ route('home') }}" class="text-decoration-none d-flex align-items-center gap-2">
-                    <div class="bg-danger text-white fw-black px-3 py-1 rounded-3 fs-3 font-en" style="letter-spacing: -1px;">
+                    <div class="bg-danger text-white fw-black px-2 px-sm-3 py-1 rounded-3 fs-3 font-en" style="letter-spacing: -1px;">
                         NH<span class="text-dark">P</span>
                     </div>
                     <div>
-                        <h1 class="h3 fw-extrabold m-0 text-uppercase font-en" style="color: var(--nh-text); line-height: 1;">
+                        <h1 class="h3 fw-extrabold m-0 text-uppercase font-en header-logo-title" style="color: var(--nh-text); line-height: 1;">
                             NEWSHUB<span class="text-danger">PRO</span>
                         </h1>
-                        <small class="text-muted d-block" style="font-size: 0.72rem; letter-spacing: 0.5px;">খবরের সাথে, সবসময়</small>
+                        <span class="text-muted d-block header-tagline">খবরের সাথে, সবসময়</span>
                     </div>
                 </a>
             </div>
@@ -63,15 +63,11 @@
                     @endif
                 </div>
             </div>
-            <div class="col-6 col-md-4 text-end">
+            <div class="col-3 col-md-4 text-end">
                 <div class="d-flex align-items-center justify-content-end gap-2 gap-md-3">
                     <button onclick="openSearch()" class="btn btn-outline-secondary rounded-circle" style="width:42px; height:42px;" aria-label="Search">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
-                    <a href="#" class="btn btn-danger rounded-pill px-3 py-2 d-inline-flex align-items-center gap-2 fw-bold shadow-sm">
-                        <span class="live-pulse bg-white"></span>
-                        <span style="font-size: 0.9rem;">LIVE TV</span>
-                    </a>
                 </div>
             </div>
         </div>

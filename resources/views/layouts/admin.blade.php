@@ -200,15 +200,39 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .sidebar-overlay.active {
+            display: block;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
 
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <!-- Sidebar Navigation -->
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-brand">
-            <i class="fa-solid fa-newspaper"></i>
-            <span>NewsPortal Admin</span>
+        <div class="sidebar-brand d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fa-solid fa-newspaper"></i>
+                News Admin
+            </div>
+            <button class="btn btn-link text-white d-lg-none p-0" id="sidebarClose">
+                <i class="fa-solid fa-xmark fs-4"></i>
+            </button>
         </div>
         
         <ul class="sidebar-menu">
@@ -366,9 +390,17 @@
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('sidebarCollapse').addEventListener('click', function () {
-            document.getElementById('sidebar').classList.toggle('active');
-        });
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        
+        document.getElementById('sidebarCollapse').addEventListener('click', toggleSidebar);
+        document.getElementById('sidebarClose').addEventListener('click', toggleSidebar);
+        overlay.addEventListener('click', toggleSidebar);
 
         // Global Image & Video Preview Handler
         document.addEventListener('change', function(e) {

@@ -44,11 +44,11 @@
             <i class="fa-solid fa-house fs-5 d-block"></i>
             <span style="font-size: 0.7rem;">হোম</span>
         </a>
-        <a href="#" class="text-center text-decoration-none text-muted">
+        <a href="{{ url('/') }}/#trending-section" class="text-center text-decoration-none text-muted">
             <i class="fa-solid fa-fire fs-5 d-block"></i>
             <span style="font-size: 0.7rem;">ট্রেন্ডিং</span>
         </a>
-        <a href="#" class="text-center text-decoration-none text-muted">
+        <a href="{{ url('/') }}/#video-section" class="text-center text-decoration-none text-muted">
             <i class="fa-solid fa-circle-play fs-5 d-block"></i>
             <span style="font-size: 0.7rem;">ভিডিও</span>
         </a>
