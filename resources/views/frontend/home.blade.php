@@ -18,25 +18,16 @@
                             style="background: linear-gradient(180deg, rgba(7,11,18,0) 20%, rgba(7,11,18,0.95) 100%);"></div>
 
                         <!-- Floating Glass Card Overlay -->
-                        <div class="position-absolute bottom-0 start-0 end-0 p-3 p-md-4 m-3 m-md-4 rounded-4 glass-panel border-0 text-white"
-                            style="background: rgba(11, 18, 32, 0.75);">
-                            <span
-                                class="badge bg-danger text-uppercase px-3 py-2 rounded-pill fw-bold mb-2">{{ $featured->category->name }}</span>
-                            <h2 class="fw-extrabold display-6 mb-2 text-white lh-sm"
-                                style="font-size: calc(1.3rem + 1.2vw);">
-                                <a href="{{ route('news.show', $featured->slug) }}"
-                                    class="text-white text-decoration-none hover-danger">{{ $featured->title }}</a>
+                        <div class="position-absolute bottom-0 start-0 end-0 p-3 p-md-4 m-3 m-md-4 rounded-4 border text-white" style="background: rgba(11, 18, 32, 0.45) !important; border: 1px solid rgba(255, 255, 255, 0.1) !important;">
+                            <span class="badge bg-danger text-uppercase px-3 py-2 rounded-pill fw-bold mb-2">{{ $featured->category->name }}</span>
+                            <h2 class="fw-extrabold display-6 mb-2 text-white lh-sm" style="font-size: calc(1.3rem + 1.2vw);">
+                                <a href="{{ route('news.show', $featured->slug) }}" class="text-white text-decoration-none hover-danger">{{ $featured->title }}</a>
                             </h2>
-                            <p class="text-light opacity-75 d-none d-md-block mb-3 fs-6 line-clamp-2">
-                                {{ $featured->short_description }}</p>
-                            <div
-                                class="d-flex align-items-center text-muted small gap-3 opacity-90 border-top border-secondary pt-2">
-                                <span><i class="fa-solid fa-user-pen text-danger me-1"></i>
-                                    {{ $featured->author->name }}</span>
-                                <span><i class="fa-regular fa-clock me-1"></i>
-                                    {{ $featured->created_at->diffForHumans() }}</span>
-                                <span><i class="fa-regular fa-eye me-1"></i> {{ number_format($featured->views) }}
-                                    পঠিত</span>
+                            <p class="text-light opacity-75 d-none d-md-block mb-3 fs-6 line-clamp-2">{{ $featured->short_description }}</p>
+                            <div class="d-flex align-items-center text-white-50 gap-3 border-top border-secondary pt-2" style="font-size: 0.85rem !important; opacity: 1 !important;">
+                                <span><i class="fa-solid fa-user-pen text-danger me-1"></i> {{ $featured->author->name }}</span>
+                                <span><i class="fa-regular fa-clock me-1"></i> {{ $featured->created_at->diffForHumans() }}</span>
+                                <span><i class="fa-regular fa-eye me-1"></i> {{ number_format($featured->views) }} পঠিত</span>
                             </div>
                         </div>
                     </div>

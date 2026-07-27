@@ -1,5 +1,5 @@
 <!-- MAIN NAVIGATION BAR -->
-<nav class="navbar navbar-expand-lg sticky-nav py-0">
+<nav class="navbar navbar-expand-lg sticky-nav py-3">
     <div class="container-fluid px-lg-5">
         <button class="navbar-toggler my-2 border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
             aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
